@@ -1,0 +1,46 @@
+@import './Mixins';
+@import "./Variables.scss";
+
+
+.FirstFooter {
+  display: flex;
+  font-size: 15px;
+  position: absolute;
+  top: 86%;
+ 
+}
+
+.a-write-to-us {
+
+  margin-left: 1em;
+  text-decoration: none;
+ 
+  color: blue;
+}
+.li-write-to-us {
+  list-style-type: none;
+}
+.footerFirstSite {
+  @include display-flex();
+
+  position: absolute;
+  top: 90.8%;
+  width: 100vw;
+  padding: 1.6rem;
+  color:white;
+  background-color: $primary-color-button;
+  font-size: .8em;
+}
+
+
+
+@media (orientation: portrait) {
+ .btnUnit {
+  top: 55%;
+ }
+}
+@media (min-width: 1200px) {
+  .btnUnit {
+    top: 55%;
+  }
+}

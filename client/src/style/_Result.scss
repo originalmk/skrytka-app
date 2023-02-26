@@ -1,0 +1,43 @@
+.trophy {
+  min-width: 450px;
+  min-height: 450px;
+  max-width: 450px;
+  max-height: 450px;
+  
+}
+.congratulationh2 {
+  font-size: 40px;
+  letter-spacing: 3px;
+  margin-bottom: 0.1em;
+}
+
+#resultButton {
+  margin-top: 5%;
+}
+
+.endScoreh2 {
+  font-size: 40px;
+}
+
+@media (max-width: 800px) {
+  .trophy {
+    width: 200px;
+    height: 200px;
+  }
+  .endScoreh2 {
+    font-size: 35px;
+  }
+  .congratulationh2 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 400px) {
+  .endScoreh2 {
+    font-size: 30px;
+  }
+  .trophy {
+    width: 150px;
+    height: 150px;
+  }
+}
+
