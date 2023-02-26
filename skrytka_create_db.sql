@@ -16,7 +16,7 @@ CREATE TABLE fire_truck (
 DROP TABLE IF EXISTS truck_side CASCADE;
 CREATE TABLE truck_side (
     id SERIAL PRIMARY KEY,
-    image_path VARCHAR(128) NOT NULL CHECK(image_path ~ '^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg))$'),
+    image_path VARCHAR(128) NOT NULL CHECK(image_path ~ '^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$'),
     ordinal_number INTEGER NOT NULL,
     fire_truck_id INTEGER REFERENCES fire_truck ON DELETE CASCADE ON UPDATE CASCADE
 );
