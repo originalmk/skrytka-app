@@ -7,6 +7,7 @@ const validator = require('validator');
 
 const app = express();
 
+// TODO: Replace with some environmental variables which store real password / host / database name
 const db = pgp('postgres://postgres:99postgres11@localhost:5432/skrytka');
 
 const port = 3001;
