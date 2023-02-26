@@ -51,7 +51,7 @@ export const QuizGetQuestion = ({score,isClick,setScore,setIsClick,navigate}) =>
 
 export const QuizDataImageFromDb = [
   {
-    img: '/img/fire-truck/img1.jpg',
+    img: '/img/fire-truck/wozLEFT.webp',
     boxStyle: {
         name: "Kierowca 1",
         top: "48%",
@@ -82,7 +82,7 @@ export const QuizDataImageFromDb = [
     }
   },
   {
-    img: '/img/fire-truck/imgTrack2.jpg',
+    img: '/img/fire-truck/wozTOP.webp',
     boxStyle: {
       name: "Dach",
       top: "48%",
@@ -103,7 +103,7 @@ export const QuizDataImageFromDb = [
     },
   },
   {
-    img: '/img/fire-truck/imgTrack4.jpg',
+    img: '/img/fire-truck/wozRIGHT.webp',
     boxStyle: {
       name: "Dowódca 3",
       top: "50%",
@@ -135,7 +135,7 @@ export const QuizDataImageFromDb = [
   },
 
   {
-    img: '/img/fire-truck/imgTrack3.jpg',
+    img: '/img/fire-truck/wozBACK.webp',
     boxStyle: {
       name: "Tył",
       top: "42%",
