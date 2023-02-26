@@ -4,12 +4,28 @@ import React, {useContext} from 'react';
 import { AppContext } from './AppContext';
 
 import {Link} from 'react-router-dom';
-
+import {useState, useEffect} from 'react';
 import FooterQuiz from './FooterQuiz';
 
 const BottomFPage = () => {
 
-
+  const [data, setData] = useState(null);
+ const [loading, setLoading] = useState(true);
+ const [error, setError] = useState(null);
+  const url = '/osp-units?prefix=Gdańsk';
+ useEffect(() => {
+  fetch(url)
+   .then((response) => {
+      if(!response.ok){
+        throw new Error(
+          `PROBLEM ${response.status}`
+        )
+      }
+      return response;
+   })
+   .then(data => console.log(data))
+   .catch(err => console.log(err.message))
+ }, []);
 
   const {unitOsp} = useContext(AppContext);
 
