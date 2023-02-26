@@ -6,9 +6,10 @@ const types = require('pg').types;
 const validator = require('validator');
 
 const app = express();
+
 const db = pgp('postgres://postgres:99postgres11@localhost:5432/skrytka');
 
-const port = 3000;
+const port = 3001;
 
 class Point {
 	x;
