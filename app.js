@@ -5,11 +5,10 @@ const responseTime = require('response-time');
 const types = require('pg').types;
 const validator = require('validator');
 
+require('dotenv').config();
+
 const app = express();
-
-// TODO: Replace with some environmental variables which store real password / host / database name
-const db = pgp('postgres://postgres:99postgres11@localhost:5432/skrytka');
-
+const db = pgp(`postgres://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
 const port = 3001;
 
 class Point {
@@ -58,6 +57,8 @@ app.use(session({
 		maxAge: 30 * 24 * 60 * 60 * 1000 
 	}
 }));
+
+console.log(process.env.DB_NAME);
 
 let latencies = [0];
 const MAX_LATENCIES = 25;
