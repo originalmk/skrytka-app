@@ -1,12 +1,15 @@
 DROP VIEW IF EXISTS units_list;
 CREATE VIEW units_list AS
     SELECT id, name, locality FROM osp_unit;
-
+ 
 DROP FUNCTION IF EXISTS get_units_list;
 CREATE FUNCTION get_units_list(prefix VARCHAR) RETURNS TABLE (id INTEGER, name VARCHAR, locality VARCHAR)
 AS
 $func$
-    SELECT * FROM units_list WHERE locality LIKE prefix || '%' OR name LIKE prefix || '%' ORDER BY locality, name LIMIT 3;
+    SELECT * FROM units_list
+    WHERE LOWER(locality) LIKE LOWER('%' || prefix || '%')
+       OR LOWER(name) LIKE LOWER('%' || prefix || '%')
+    ORDER BY locality, name LIMIT 3;
 $func$
 LANGUAGE SQL;
 

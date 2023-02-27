@@ -84,13 +84,13 @@ app.get('/ping', (req, res) => {
  * e.g. https://skrytka.app/osp-units?prefix=Gda
  * Returns 3 matching results sorted by locality, name.*/
 app.get('/osp-units', async (req, res) => {
-	const localityPrefix = req.query['locality-prefix'];
+	const locality = req.query['locality'];
 
-	if(!localityPrefix) {
+	if(!locality) {
 		res.status(400);
 		res.json({
 			queryErrors: {
-				'locality-prefix': ['Nie podano parametru!']
+				'locality': ['Nie podano parametru!']
 			},
 			otherErrors: []
 		});
@@ -101,7 +101,7 @@ app.get('/osp-units', async (req, res) => {
 	// Also are these database constraints reasonable?
 
 	try {
-		const unitsList = await db.any('SELECT id AS "ID", name, locality FROM get_units_list($1)', [localityPrefix]);
+		const unitsList = await db.any('SELECT id AS "ID", name, locality FROM get_units_list($1)', [locality]);
 		res.status(200);
 		res.json(unitsList);
 	} catch(error) {
