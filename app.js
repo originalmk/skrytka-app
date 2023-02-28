@@ -44,8 +44,11 @@ types.setTypeParser(603, function(rectangleStr) {
 	return new Rectangle(lowerBottomPoint, size);
 });
 
-// Frontend hosting:
+// Hosting frontend:
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// Hosting images (trucks etc):
+app.use(express.static(path.join(__dirname, 'media')));
 
 app.use(session({
 	store: new (require('connect-pg-simple')(session))({
