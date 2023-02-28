@@ -4,12 +4,13 @@ const session = require('express-session');
 const responseTime = require('response-time');
 const types = require('pg').types;
 const validator = require('validator');
+const path = require('path');
 
 require('dotenv').config();
 
 const app = express();
 const db = pgp(`postgres://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
-const port = 3001;
+const port = 5000;
 
 class Point {
 	x;
@@ -42,6 +43,9 @@ types.setTypeParser(603, function(rectangleStr) {
 
 	return new Rectangle(lowerBottomPoint, size);
 });
+
+// Frontend hosting:
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(session({
 	store: new (require('connect-pg-simple')(session))({
@@ -591,6 +595,12 @@ app.get('/simulate-logout', (req, res) => {
 	req.session.destroy();
 	res.status(200);
 	res.send(`Logged out!`);
+});
+
+// This should remain at the end of all routes
+// It will direct every not matched route to index.html file
+app.get('/*', function (req, res) {
+	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 app.listen(port, () => {
