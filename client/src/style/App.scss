@@ -32,13 +32,16 @@
   font-family: $priamry-font-family;
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 body {
   font-family: $priamry-font-family;
   background: #f7f6ff;
- 
 }
-
 
 .container {
   display: flex;

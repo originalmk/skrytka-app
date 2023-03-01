@@ -16,22 +16,21 @@
  
   color: blue;
 }
+
 .li-write-to-us {
   list-style-type: none;
 }
-.footerFirstSite {
-  @include display-flex();
 
-  position: absolute;
-  top: 90.8%;
+.footerFirstSite {
+  margin-top: auto;
   width: 100vw;
+  height: 10vh;
   padding: 1.6rem;
   color:white;
   background-color: $primary-color-button;
   font-size: .8em;
+  text-align: center;
 }
-
-
 
 @media (orientation: portrait) {
  .btnUnit {
