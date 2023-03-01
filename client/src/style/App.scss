@@ -175,6 +175,12 @@ body {
   position: relative;
   overflow: hidden;
 
+  @media (max-width: 500px) {
+    width: 150px;
+    height: 150px;
+  }
+
+
   &::before{
     content: "";
     background-image: conic-gradient(
@@ -206,10 +212,11 @@ body {
   }
   
 }
+
 .box {
   z-index: 1000;
-  width: 220px;
-  height: 220px;
+  width: 95%;
+  height: 95%
 }
 // 
 
