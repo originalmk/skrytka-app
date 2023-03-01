@@ -1,3 +1,5 @@
+SET client_encoding TO 'UTF8';
+
 DROP TABLE IF EXISTS osp_unit CASCADE;
 DROP TABLE IF EXISTS fire_truck CASCADE;
 DROP TABLE IF EXISTS truck_side CASCADE;
