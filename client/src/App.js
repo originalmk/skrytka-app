@@ -24,7 +24,7 @@ function App() {
 
       </div>
 
-
+     <footer className='footerFirstSite'><p className='skrytka-date'>Skrytka 2023</p>Affero General Public License v3.0</footer> 
 
     </>
   );
