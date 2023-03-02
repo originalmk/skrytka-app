@@ -128,7 +128,7 @@ const Truck = () => {
 
     <div className='FooterSecondSite'></div>
      
-      <a className='a-write-to-us-1' href = '/linkdostrony'>Zgłoś błąd lub pomysł ulepszenia aplikacji!</a>
+      <a className='a-write-to-us-1' href = 'mailto:kontakt@janilowski.pl'>Zgłoś błąd lub pomysł ulepszenia aplikacji!</a>
 
       <footer className='footerSecondSite'>General Public License<p className='skrytka-date'>Skrytka 2023</p></footer>
 

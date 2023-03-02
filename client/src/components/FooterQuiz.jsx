@@ -1,14 +1,14 @@
 const FooterQuiz = () => (
   <div className='FooterSecondSite'>
      
-  <a className='a-write-to-us-1' href = '/linkdostrony'>Zgłoś błąd lub pomysł ulepszenia aplikacji!</a>
+  <a className='a-write-to-us-1' href = 'mailto:kontakt@janilowski.pl'>Zgłoś błąd lub pomysł ulepszenia aplikacji!</a>
 
-  <footer className='footerSecondSite'>General Public License<p className='skrytka-date'>Skrytka 2023</p>
+  <footer className='footerSecondSite'>Affero General Public License v3.0<p className='skrytka-date'>Skrytka.App 2023</p>
   
 
   <div className="footerRealization">
  <div className="firstPatron">
-   <h4>Projekt zrealizowany w ramach Olimpiady Zwolnieni z Teorii</h4>
+   <h4>Projekt realizowany w ramach Olimpiady Zwolnieni z Teorii</h4>
    <img className='patronImg1' src="/img/logoZzt.png" alt="logo" />
  </div>
   
