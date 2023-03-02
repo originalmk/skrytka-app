@@ -5,8 +5,7 @@ import { SecondMinutes } from './Timer';
 
 import { useNavigate } from 'react-router-dom';
 import Conffetti from './Conffetti';
-import Player from './Sound';
-import url from '../style/congratulation.mp3';
+
 import { link } from './QuizGame';
 import { InformationTrackFromDB } from './Truck';
 const UpdateTrackScore = () => {
@@ -25,17 +24,22 @@ const Result = () => {
   UpdateTrackScore();
   return (
     <>
-    <div className="container">
+      <div className="container">
      
-      <h2 className='congratulationh2'>BRAWO !!!</h2>
-      <img className='trophy' src="\img\trophy.webp" alt="" />
-      <h2 className='endScoreh2'>Twój wynik to: {endScore} / 10</h2>
-      <h3>Czas: {SecondMinutes} minut {SecondSeconds} sekund</h3>
-      <button id = "resultButton" className='NextQuestionButton' onClick = {() => navigate(-1)}>Zagraj jeszcze raz</button>
-      <button id = "resultButton" className='NextQuestionButton'onClick={() => navigate('/')}>Wróć do strony głównej</button>
-      <Conffetti/>
-      <Player url = {url}/>
-    </div>
+     <h1 className='congratulationh2'>Koniec</h1>
+     <h2>W quizie uzyskałeś/aś: </h2>
+
+    <h3>{{endScore}/10 < 9 ? "Jesteś szybki.. ale pożar jest szybszy" : "Brawo udało ci się ugasić pożar"}</h3>
+     <button id = "resultButton" className='NextQuestionButton' onClick = {() => navigate(-1)}>Zagraj jeszcze raz</button>
+     <button id = "resultButton1" className='NextQuestionButton'onClick={() => navigate('/')}>Wróć do strony głównej</button>
+
+     <h2>Twój czas wyniósł: {SecondMinutes}:{SecondSeconds} </h2>
+     <h2>Łącznie udało ci się zdobyć: {endScore}/10</h2>
+     <h2>Roznieć zapał, rozwiązuj quizy, i podziel się wynikiem ze znajomymi</h2>
+   
+     <Conffetti/>
+     
+   </div>
 
 
  

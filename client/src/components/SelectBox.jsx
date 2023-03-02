@@ -1,4 +1,4 @@
-import React, {useContext, useState ,useRef} from 'react';
+import React, {useContext, useState ,useRef, useEffect} from 'react';
 import { AppContext } from './AppContext';
 const SearchBox = () => {
 
@@ -7,10 +7,27 @@ const SearchBox = () => {
   const [value, setValue] = useState("");
   const inputSearchRef = useRef(true);
 
+ 
+
   const handleChangeInput = (e) => {
-    setIsContainerActive(true);
-    const tasks = localization.filter(localization => localization.toLowerCase().includes(e.target.value.toLowerCase()));
-      setValue(tasks); 
+    if(e.target.value === "") return
+      fetch(`/osp-units?locality=${e.target.value}`)
+        .then(data => data.json())
+        .then(data1=> {
+          console.log(data1)
+          data1.map(locality => {
+              console.log(locality.locality);
+              let localityArray = [];
+              localityArray.push(locality.locality);
+              let tasks = localityArray.filter(localization => localization.toLowerCase().includes(e.target.value.toLowerCase()));
+              console.log(tasks);
+              setIsContainerActive(true);
+              setValue(tasks); 
+          })
+        })
+   
+
+      
   }
 
   const OptionJSXTag = () => {

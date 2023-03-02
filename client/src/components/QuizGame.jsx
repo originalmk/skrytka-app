@@ -6,8 +6,6 @@ import { EndCorrectAnswer } from './GetImageAndQuestion';
 import Timer from './Timer';
 import FooterQuiz from './FooterQuiz';
 export let link = "";
-console.log(link)
-
 export let endScore = 1;
 
 const NavigationQuiz = ({score}) => {

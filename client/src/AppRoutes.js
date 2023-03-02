@@ -1,5 +1,6 @@
-import Truck from './components/Truck';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Truck from './components/Truck';
 import App from './App';
 import NotFound from './components/NotFound'
 import QuizGame from './components/QuizGame';
@@ -8,9 +9,6 @@ import AppProvider from './components/AppContext';
 
 
 const AppRoutes = () => {
-
-
-
   return (
     <Routes>
       <Route path='/' element={<App />} />

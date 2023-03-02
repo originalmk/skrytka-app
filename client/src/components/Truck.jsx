@@ -1,8 +1,9 @@
 
-import React, {useRef} from 'react';
+import React, {useRef,useEffect} from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
+
 
 
 export let InformationTrackFromDB = [
