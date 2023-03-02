@@ -1,28 +1,31 @@
 import React, {useContext, useState ,useRef, useEffect} from 'react';
 import { AppContext } from './AppContext';
+export let idUnits = "";
 const SearchBox = () => {
 
  
-  const {unitOsp, isContainerActive, setunitOsp,setIsContainerActive,localization} = useContext(AppContext);
+  const {unitOsp, isContainerActive, setunitOsp,setIsContainerActive,localization,setId} = useContext(AppContext);
   const [value, setValue] = useState("");
   const inputSearchRef = useRef(true);
 
- 
 
+  
   const handleChangeInput = (e) => {
     if(e.target.value === "") return
       fetch(`/osp-units?locality=${e.target.value}`)
         .then(data => data.json())
-        .then(data1=> {
-          console.log(data1)
-          data1.map(locality => {
-              console.log(locality.locality);
+        .then(res=> {
+
+          res.map(locality => {
+            
               let localityArray = [];
+
               localityArray.push(locality.locality);
               let tasks = localityArray.filter(localization => localization.toLowerCase().includes(e.target.value.toLowerCase()));
-              console.log(tasks);
               setIsContainerActive(true);
               setValue(tasks); 
+
+             idUnits = locality.ID
           })
         })
    

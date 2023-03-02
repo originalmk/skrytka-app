@@ -1,11 +1,10 @@
 
-import React, {useRef,useEffect} from 'react';
+import React, {useRef,useEffect,useContext} from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
-
-
-
+import { AppContext } from './AppContext';
+import { idUnits } from './SelectBox';
 export let InformationTrackFromDB = [
   {
     img: '../img/fire-truck/track1.jpg',
@@ -30,13 +29,11 @@ const Truck = () => {
   const {id} = useParams();
   const [trackName, setTrackName] = useState('');
   const textChooseTrack = useRef(true);
-  
+
 
   const handleImageClick = (e) => {
-
-    const imgWithoutExtends = e.target.id.split(/\.(?=[^\.]+$)/);
-    const TrackName = imgWithoutExtends[0].slice(18);
-    setTrackName(TrackName);
+    let nameofTrack = e.target.getAttribute('name');
+    setTrackName(nameofTrack);
 
     textChooseTrack.current.style.color= 'black';
   
@@ -54,41 +51,51 @@ const Truck = () => {
 
 
   const BoxComponent = () => {
-    const track = InformationTrackFromDB.map(({img,name,progress},index)=> {
-
-        return (
-          <>
-             
-
-          <div className="boxTrack" key = {index} id = {img} onClick={handleImageClick} >
-
-
-          <img className='imageFireTrack' id = {img}  src={img} alt="img" />
-
-
-          <div className="informationAboutTrack">
-            <h3 className= 'TrackName'>{name}</h3>
-          
-
-            <progress className="progress" max="100" value={progress}></progress>
-            <div className='ScoringValueTrack'>
-            <h4>{progress / 10}/10</h4>
-            <h4>{progress}%</h4>
-            </div>
-            
-          </div>
-          
-          </div>
-          
-        </>
-
-
-        )
-        
-      });
+    let [truck, setTruck] = useState('');
+  useEffect(() => {
+    fetch(`/fire-trucks?osp-unit=${idUnits}`)
+      .then(response => response.json())
+      .then(data => {
+     setTruck(data.map(({name,imagePath,avgPercent},index) => {
+        console.log(name)
       return (
         <>
-           {track}
+           
+
+        <div className="boxTrack" key = {index} id = {imagePath} name = {name} onClick={(e) => handleImageClick(e)} >
+
+
+        <img className='imageFireTrack' id = {imagePath}  src={`../${imagePath}`} alt="img" />
+
+ 
+        <div className="informationAboutTrack">
+          <h3 className= 'TrackName'>{name}</h3>
+        
+
+          <progress className="progress" max="100" value={avgPercent}></progress>
+          <div className='ScoringValueTrack'>
+          <h4>{avgPercent / 10}/10</h4>
+          <h4>{avgPercent}%</h4>
+          </div>
+          
+        </div>
+        
+        </div>
+        
+      </>
+
+
+      )
+     })
+      )}
+
+   
+   )
+ }, []);
+
+      return (
+        <>
+           {truck}
            <Link to = {trackName} style={{ textDecoration: 'none', color: 'black'}}>
             <i onClick={handleArrowQuizClick}  className="fa-solid fa-arrow-right"></i>
             </Link>

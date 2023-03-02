@@ -1,15 +1,17 @@
-﻿{
+{
   "name": "skrytka",
   "version": "0.0.1",
   "description": "Potężna aplikacja Skrytka.App!",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
+    
   },
   "author": "Zespół Skrytka.App",
   "license": "ISC",
   "dependencies": {
     "connect-pg-simple": "^8.0.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "pg": "^8.9.0",

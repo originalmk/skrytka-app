@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
   const [isContainerActive, setIsContainerActive] = useState(true);
   const [localization, setLocalization] = useState(localizationFromDBArr);
   const [isPopUpActive, setIsPopUpActive] = useState(true);
-
+  const [idUnit, setId] = useState(1);
   return (
     <AppContext.Provider value={{
       unitOsp,
@@ -23,6 +23,8 @@ const AppProvider = ({ children }) => {
       localizationFromDBArr,
       isPopUpActive,
       setIsPopUpActive,
+      idUnit,
+      setId
 
 
     }}>

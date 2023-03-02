@@ -1,11 +1,23 @@
+SET client_encoding TO 'UTF8';
+
 DROP TABLE IF EXISTS osp_unit CASCADE;
+DROP TABLE IF EXISTS fire_truck CASCADE;
+DROP TABLE IF EXISTS truck_side CASCADE;
+DROP TABLE IF EXISTS cache CASCADE;
+DROP TABLE IF EXISTS account CASCADE;
+DROP TABLE IF EXISTS equipment CASCADE;
+DROP TABLE IF EXISTS score CASCADE;
+DROP TABLE IF EXISTS permission CASCADE;
+DROP TABLE IF EXISTS accounts_permissions CASCADE;
+DROP TABLE IF EXISTS event CASCADE;
+DROP TABLE IF EXISTS user_session;
+
 CREATE TABLE osp_unit (
     id SERIAL PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
     locality VARCHAR(64) NOT NULL CHECK(locality SIMILAR TO '[A-ZĄĆĘŁŃÓŚŹŻ][A-zĄĆĘŁŃÓŚŹŻząćęłńóśźż. ]+')
 );
 
-DROP TABLE IF EXISTS fire_truck CASCADE;
 CREATE TABLE fire_truck (
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
@@ -13,7 +25,6 @@ CREATE TABLE fire_truck (
     osp_unit_id INTEGER NOT NULL REFERENCES osp_unit ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS truck_side CASCADE;
 CREATE TABLE truck_side (
     id SERIAL PRIMARY KEY,
     image_path VARCHAR(128) NOT NULL CHECK(image_path ~ '^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$'),
@@ -21,7 +32,6 @@ CREATE TABLE truck_side (
     fire_truck_id INTEGER REFERENCES fire_truck ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS cache CASCADE;
 CREATE TABLE cache (
     id SERIAL PRIMARY KEY,
     name VARCHAR(64),
@@ -34,7 +44,6 @@ CREATE TABLE cache (
     truck_side INTEGER NOT NULL REFERENCES truck_side ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS account CASCADE;
 CREATE TABLE account (
     nickname VARCHAR(32) CHECK(nickname SIMILAR TO '[0-9A-z_żółćęśąźńŻÓŁĆĘŚĄŹŃ]{3,}') PRIMARY KEY,
     name VARCHAR(32) CHECK(name SIMILAR TO '[A-ZŻÓŁĆĘŚĄŹŃ][a-zżółćęśąźń]+'),
@@ -43,14 +52,12 @@ CREATE TABLE account (
     default_osp INTEGER REFERENCES osp_unit ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS equipment CASCADE;
 CREATE TABLE equipment (
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL CHECK(LENGTH(name) > 0),
     cache_id INTEGER NOT NULL REFERENCES cache ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS score;
 CREATE TABLE score (
     id SERIAL PRIMARY KEY,
     account_nickname VARCHAR(32) REFERENCES account ON DELETE CASCADE ON UPDATE CASCADE,
@@ -60,7 +67,6 @@ CREATE TABLE score (
     seconds INTEGER NOT NULL CHECK(seconds > 0)
 );
 
-DROP TABLE IF EXISTS permission CASCADE;
 CREATE TABLE permission (
     code VARCHAR(64) CHECK(code ~ '^[0-9A-Z_]{3,}$') PRIMARY KEY,
     name VARCHAR(64) CHECK(LENGTH(name) >= 3),
@@ -68,7 +74,6 @@ CREATE TABLE permission (
 );
 
 -- PYTANIE: Czy aktualizować permission code przy zmianie czy na NULL?
-DROP TABLE IF EXISTS accounts_permissions CASCADE;
 CREATE TABLE accounts_permissions (
     account_nickname VARCHAR(32) REFERENCES account ON DELETE CASCADE ON UPDATE CASCADE,
     permission_code VARCHAR(64) REFERENCES permission ON DELETE CASCADE ON UPDATE CASCADE,
@@ -76,7 +81,6 @@ CREATE TABLE accounts_permissions (
     CONSTRAINT pk_users_permissions PRIMARY KEY (account_nickname, permission_code, osp_unit_id)
 );
 
-DROP TABLE IF EXISTS event CASCADE;
 CREATE TABLE event (
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL CHECK(LENGTH(name) >= 3),
@@ -87,3 +91,14 @@ CREATE TABLE event (
     account_nickname VARCHAR(32) REFERENCES account ON DELETE SET NULL ON UPDATE CASCADE,
     osp_unit_id INTEGER REFERENCES osp_unit ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE user_session (
+  "sid" varchar NOT NULL COLLATE "default",
+  "sess" json NOT NULL,
+  "expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+ALTER TABLE user_session ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON user_session ("expire");
