@@ -1,22 +1,90 @@
 
-.congratulationh2 {
-  font-size: 40px;
-  letter-spacing: 3px;
-  margin-bottom: 0.1em;
+.endH1 {
+  font-size: 65px;
+  letter-spacing: 4px;
+  margin-bottom: 0.2em;
 }
 
 #resultButton {
-  margin-top: 5%;
-  background-color: #d42436;
+  margin-top: 2%;
+  background-color: #d42436;;
 }
 #resultButton1 {
-  margin-top: 5%;
+  margin-top: 2%;
   background-color: #c6c4c4;
   color: black;
+}
+#hourglass {
+
+  font-size: 20px;
+  color: black;
+}
+.textDependsEndScore {
+  margin-top: 1em;
+}
+#resultMedia {
+  margin-top: 1em;
+
+ 
+  font-size: 60px;
+  color: #d42436;
+}
+.fa-brands{
+  margin-left: .5em;
+  margin-right: .5em;
 }
 
 .endScoreh2 {
   font-size: 40px;
+}
+.textEndScreenShare {
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  .textEndScreenShare {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  #resultButton{
+    font-size: 20px;
+  }
+  #resultButton1{
+    font-size: 20px;
+  }
+  #h2TimeResultPage{
+    font-size: 15px;
+  }
+  #h2ScoreResult {
+    font-size: 15px;
+  }
+  .endH1 {
+    font-size: 30px;
+  }
+  .fa-brands{
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+  #resultMedia {
+    font-size: 30px;
+  }
+  #hourglass{
+    font-size: 15px;
+    margin-left: .2em;
+    margin-right: .2em;
+  }
+ 
+  .scoreYouWin {
+    font-size: 15px;
+  }
+  .textEndScreenShare {
+    font-size: 12px;
+  }
+  .textDependsEndScore {
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 800px) {

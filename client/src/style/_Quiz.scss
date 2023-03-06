@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
  
+ 
 }
 
 .popup {
@@ -78,6 +79,7 @@
   .questionText1 {
     color: white;
     font-size: 25px;
+    min-width: 200px;
    
   }
 }
@@ -221,12 +223,12 @@
 }
 
 .patronImg {
-  width: $width-footer-icon / 3;
-  height:  $width-footer-icon / 3;;
+  width: calc($width-footer-icon / 3);
+  height: calc( $width-footer-icon / 3);
 
   }
   .patronImg1 {
-    width: $width-footer-icon / 2;
+    width: calc($width-footer-icon / 2);
     height: 70px;
   }
 
@@ -261,6 +263,18 @@
   .questionText1 {
     font-size: 20px;
     
+  }
+  #resultButton{
+    font-size: 30px;
+  }
+  #resultButton1{
+    font-size: 30px;
+  }
+  .h2TimeResult{
+    font-size: 20px;
+  }
+  .h2TimeScore {
+    font-size: 20px;
   }
  
 }
@@ -326,7 +340,7 @@
   font-size: 20px;
   font-weight: bolder;
   color: black; 
-
+  display: block;
   z-index: 900;
    &:hover {
     cursor: pointer;
@@ -364,4 +378,20 @@
 .skrytka {
   display: block;
   border: 3px solid yellow;
+}
+
+.popupButton {
+  font-size: 40px;
+  padding: .5em;
+  border: none;
+  background-color: #d42436;
+  width: 100%;
+  height: 100%;
+  color: white;
+
+  
+  position: absolute;
+  top: 0%;
+ 
+  z-index: 1000000;
 }

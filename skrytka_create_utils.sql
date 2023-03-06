@@ -65,4 +65,4 @@ LANGUAGE SQL;
 
 DROP VIEW IF EXISTS trucks_list;
 CREATE VIEW trucks_list AS
-    SELECT id, name, image_path FROM fire_truck; 
+    SELECT id, name, image_path FROM fire_truck;

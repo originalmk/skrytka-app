@@ -1,141 +1,21 @@
+import React, {useState, useEffect} from 'react';
 
-import React, {useRef, useEffect, useState} from 'react';
-import { TruckId } from './Truck';
-
-import { EndCacheId } from './GetQuestion';
-
-export let buttonQuiz = "";
-export let ButtonShowCorrectAnswer = "";
-
-
-
-export const QuizDataImageFromDb = [
-  {
-    img: '',
-    boxStyle: {
-        name: "",
-        top: "",
-        left: "",
-        height: "",
-        width: "",
-    },
-    boxStyle1: {
-      name1: "",
-      top1: "",
-      left1: "",
-      height1: "",
-      width1: "",
-    },
-      boxStyle2: {
-        name2: "",
-        top2: "",
-        left2: "",
-        height2: "",
-        width2: "",
-    },
-    boxStyle3: {
-      name3: "",
-      top3: "",
-      left3: "",
-      height3: "",
-      width3: "",
-    }
-  },
-  {
-    img: '',
-    boxStyle: {
-      name: "",
-      top: "",
-      left: "",
-      height: "",
-      width: "",
-  },boxStyle1: {
-    name1: "",
-    top1: "",
-    left1: "",
-    height1: "",
-    width1: "",
-  },
-    boxStyle2: {   
-      name2: "",
-      top2: "",
-      left2: "",
-      height2: "",
-      width2: "",
-    },
-    boxStyle3: {   
-      name3: "",
-      top3: "",
-      left3: "",
-      height3: "",
-      width3: "",
-    },
-  },
-  {
-    img: '../qweqweqsadqw',
-    boxStyle: {
-      name: "",
-      top: "50%",
-      left: "15%",
-      height: "39%",
-      width: "15.5%",
-  },
-  boxStyle1: {
-    name1: "Dowódca 2",
-    top1: "42%",
-    left1: "32%",
-    height1: "24%",
-    width1: "18%",
-  },
-  boxStyle2: {
-    name2: "Dowódca 1",
-    top2: "52%",
-    left2: "49%",
-    height2: "39%",
-    width2: "14%",
-  },
-  boxStyle3: {
-    top2: "50%",
-    left2: "49%",
-    height2: "0",
-    width2: "0",
-  },
-
-  },
-
-  {
-    img: '',
-    boxStyle: {
-      name: "",
-      top: "42%",
-      left: "50.5%",
-      height: "41%",
-      width: "18%",
-  },
-  boxStyle1: {},
-  boxStyle2: {},
-  boxStyle3: {},
-  }
-];
+export const QuizGetData = () => {
+   
 
 
 
 
-  
+//////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
-export const QuizGetImage = ({onPress, isClick,setButtonState}) => {
-  buttonQuiz = useRef();
-  const [buttonClick, setButtonClick] = useState(false);
+// TEN CAŁY KOD JEST DO REFACTORU 
+
+
   let imageArrayFromDB = [];
-    setButtonState(buttonClick)
-    //Nazwy 
-   
 
-////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-////////////////////////////
-//          TEN CAŁY KOD JEST DO REFACTORU !!!
-   
+  // NAME 
 
   let name0ArrayFromDB = [];
   let name1ArrayFromDB = [];
@@ -150,7 +30,7 @@ export const QuizGetImage = ({onPress, isClick,setButtonState}) => {
 
   // CACHE ID
 
-
+  console.log(name0ArrayFromDB, name0Array)
 
   let cacheID0ArrayFromDB = [];
   let cacheID1ArrayFromDB = [];
@@ -200,7 +80,7 @@ export const QuizGetImage = ({onPress, isClick,setButtonState}) => {
   const [sizeX3Array] = useState([sizeX3ArrayFromDB]);
 
 
-  // SIZe y
+  // SIZe 3
 
   let sizeY0ArrayFromDB = [];
   let sizeY1ArrayFromDB = [];
@@ -224,29 +104,16 @@ useEffect(() => {
       const propertValuesObjectFromDb = Object.values(data);
 
 
-
+   
       propertValuesObjectFromDb.forEach((singleProperty,index) => {
+
         
-
-
         const {caches, sideImagePath} =singleProperty;
         imageArrayFromDB.push(sideImagePath);
 
         switch(caches.length){
           case 1: 
-              name0ArrayFromDB.push(caches[0].cacheName);
-              cacheID0ArrayFromDB.push(caches[0].cacheID);
-
-
-              left0ArrayFromDB.push(caches[0].cacheRectangle.leftBottomPoint.x)
-              top0ArrayFromDB.push(caches[0].cacheRectangle.leftBottomPoint.y);
-
-              cacheID0ArrayFromDB.push(caches[0].cacheID);
-
-
-
-              sizeX0ArrayFromDB.push(caches[0].cacheRectangle.size.x)
-              sizeY0ArrayFromDB.push(caches[0].cacheRectangle.size.y)
+              cachesLength0();
             
           break;
           case 2: 
@@ -336,128 +203,4 @@ useEffect(() => {
     })
   })
 
-  
-
-
-
-
-
-  
-  
-  const data =  QuizDataImageFromDb.map(({img}, index)=> {
-
-
-
-    ButtonShowCorrectAnswer = (isClick, setIsClick, score,setScore,navigate) => {
-      let buttonsElement = document.querySelectorAll('.quiz_button');
-      const buttonsElementArray = Array.from(buttonsElement)
-      setIsClick(!isClick);
-    
-      if(score === 9) {
-        navigate('/result');
-      }
-    if(isClick === true) {
-      buttonsElementArray.forEach(button => {
-    
-    
-        if(EndCacheId == button.name){
-        button.style.color = "yellow";
-        button.style.pointerEvents = "none";
-        button.style.display = "block";
-    
-        }else {
-          button.style.pointerEvents = "none";
-          button.style.display = "none";
-    
-        }
-      })
-    
-    }
-    else {
-    
-      buttonsElementArray.forEach(button => {
-        button.style.color = "black";
-        button.style.display = "block";
-        button.style.pointerEvents = "auto";
-        setScore(score + 1);
-      })
-    
-    }
-    
-    
-    } 
-    
-
-
-
-
-
-      
-    <ButtonShowCorrectAnswer/>
-    return (
-       <>   
-
-
-
-
-
-
-
-
-     {buttonClick ? "" : <button onClick={() => setButtonClick(true)} className='popupButton'>Zacznij Quiz</button>}
-
-      <div className="boxElement">
-      <div className="quiz_container">
-      {`../${myArray[0][index]}` !== "../undefined" 
-      ?  <img key = {index}src= {`../${myArray[0][index]}`} alt="track"/> 
-      :   <img key = {index}src= {`../${myArray[0][index]}`} 
-      style = {{display: "none"}} alt="track"/>}
-
-
-        <button ref = {buttonQuiz} name = {cacheID0Array[0][index]} onClick = {onPress} className="quiz_button"  style = {{
-          "width": `${sizeX0Array[0][index] * 100}%`,
-          "height": `${sizeY0Array[0][index] * 100}%`,
-          "top": `${left0Array[0][index] * 100}%`,
-          "left": `${top0Array[0][index] * 100}%` !== "undefined%" ?  `${top0Array[0][index] * 100}%` : "-300%",
-        }}>{name0Array[0][index]}</button>
-
-
-        <button ref = {buttonQuiz} name = {cacheID1Array[0][index]}  className="quiz_button" onClick = {onPress} 
-        style = {{
-          "width": `${sizeX1Array[0][index]* 100}%`,
-          "height": `${sizeY1Array[0][index]* 100}%`,
-          "top": `${left1Array[0][index]* 100}%`,
-          "left": `${top1Array[0][index]* 100}%` !== "undefined%" ?  `${top1Array[0][index]* 100}%` : "-300%",
-        }}>{name1Array[0][index]}</button>
-
-        <button ref = {buttonQuiz} name = {cacheID2Array[0][index]}  className="quiz_button" onClick = {onPress}
-        style = {{
-          "width": `${sizeX2Array[0][index]* 100}%`,
-          "height": `${sizeY2Array[0][index]* 100}%`,
-          "top": `${left2Array[0][index]* 100}%`,
-          "left": `${top2Array[0][index]* 100}%` !== "undefined%" ?  `${top2Array[0][index]* 100}%`  : "-300%",
-        }}>{name2Array[0][index]}</button>
-
-        <button ref = {buttonQuiz} name = {cacheID3Array[0][index]}  className="quiz_button" onClick = {onPress}
-         style = {{
-          "width": `${sizeX3Array[0][index]* 100}%`,
-          "height": `${sizeY3Array[0][index]* 100}%`,
-          "top": `${left3Array[0][index]* 100}%`,
-          "left": `${top3Array[0][index]* 100}%` !== "undefined%" ?  `${top3Array[0][index] * 100}%` : "-300%",
-        }}>{name3Array[0][index]}</button>
-  
-
-      </div>
-      </div> 
-   
-
-    
-    </>
-    )
-    
-  });
-
-  return (
-    data
-  )
 }

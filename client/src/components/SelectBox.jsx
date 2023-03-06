@@ -18,7 +18,7 @@ const SearchBox = () => {
 
           res.map(locality => {
             
-              let localityArray = [];
+              let localityArray = []; 
 
               localityArray.push(locality.locality);
               let tasks = localityArray.filter(localization => localization.toLowerCase().includes(e.target.value.toLowerCase()));
@@ -28,7 +28,7 @@ const SearchBox = () => {
              idUnits = locality.ID
           })
         })
-   
+    
 
       
   }
