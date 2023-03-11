@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {QuizGetQuestion } from './GetQuestion';
 import { QuizGetImage } from './GetImageAndQuestion';
 import AppProvider, { AppContext } from './AppContext';
@@ -14,7 +14,7 @@ export let endScore = 0;
 
 const NavigationQuiz = ({score,buttonState}) => {
   
-  console.log(endScore)
+
 
  
   link = /[^/]*$/.exec(`${window.location.href}`)[0];
@@ -53,7 +53,7 @@ const QuizGame = () => {
 
   const ButtonNextQuestionClick = (e) => {
     setScore(score + 1);
-    console.log(Number(e.target.name), EndCacheId)
+
     if(score === 9) 
       navigate("/result");
      else if (Number(e.target.name) === EndCacheId)

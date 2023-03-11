@@ -3,13 +3,8 @@ import React, {useContext} from 'react';
 import { AppContext } from './AppContext';
 
 import {Link} from 'react-router-dom';
-import {useState, useEffect} from 'react';
-import FooterQuiz from './FooterQuiz';
-
-
 
 const BottomFPage = () => {
-
 
   const {unitOsp} = useContext(AppContext);
 
@@ -22,18 +17,10 @@ const BottomFPage = () => {
  </Link>
  </div> 
    : "";
-
  return (
   <>
       {buttonShow}
 
-      
-    
-   
-   
-     
-     
- 
   </>
  ) 
 }

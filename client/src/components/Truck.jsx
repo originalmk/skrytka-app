@@ -1,12 +1,9 @@
 
-import React, {useRef,useEffect,useContext} from 'react';
+import React, {useRef,useEffect} from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import { AppContext } from './AppContext';
 import { idUnits } from './SelectBox';
-
-
 export let TruckId = "";
 
 
@@ -36,22 +33,28 @@ const Truck = () => {
 
 
 
-
   const BoxComponent = () => {
+
+
+
+
+    
     let [truck, setTruck] = useState('');
     useEffect(()=> {
+
+      
       fetch(`/fire-trucks?osp-unit=${idUnits}`)
       .then(response => response.json())
       .then(data => {
      setTruck(data.map(({ID,name,imagePath,avgPercent},index) => {
           TruckId = ID;
-
-          let firstAvgPercent = avgPercent * 10;
-          let SecondAvgPercent = avgPercent * 100;
+          let percent = avgPercent.toString().slice(0,3);
+          let firstAvgPercent = percent  * 10;
+          let SecondAvgPercent = percent * 100;
 
       return (
         <>
-            
+              
 
         <div className="boxTrack" key = {index} id = {imagePath} name = {name} onClick={(e) => handleImageClick(e)} >
 

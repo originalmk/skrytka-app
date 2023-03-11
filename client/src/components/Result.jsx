@@ -8,10 +8,11 @@ import Conffetti from './Conffetti';
 
 import  {  CircularProgressbar ,  buildStyles  }  from  'react-circular-progressbar' ;
 import 'react-circular-progressbar/dist/styles.css';
-export let points = endScore;
+
 const Result = () => {
-  console.log(TruckId, SecondSeconds, endScore)
   
+
+
     fetch('/quiz-results', {
   method: 'POST',
   headers: {
