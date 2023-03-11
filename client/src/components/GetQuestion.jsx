@@ -7,7 +7,7 @@ export let EndCorrectAnswer = "";
 
  
 const FetchData = ({isClick,score,setIsClick,setScore,navigate}) => {
-  const [test, setTest] = useState('');
+
 
     useEffect(() => {
       fetch(`/random-question?fire-truck=${TruckId}`)
@@ -16,7 +16,7 @@ const FetchData = ({isClick,score,setIsClick,setScore,navigate}) => {
         if(isClick === true) {
         const propertValuesObjectFromDb = Object.values(dataQuestion);
           EndCorrectAnswer = propertValuesObjectFromDb[1];
-          setTest(propertValuesObjectFromDb[1]);
+
           EndCacheId = propertValuesObjectFromDb[0];
         }
         
@@ -33,7 +33,7 @@ const FetchData = ({isClick,score,setIsClick,setScore,navigate}) => {
       <>
      
       <div className="questionDiv">
-      <h1 className='questionText1'>{test}</h1>  
+      <h1 className='questionText1'>{EndCorrectAnswer}</h1>  
       <button onClick={() => ButtonShowCorrectAnswer(isClick, setIsClick , score , setScore, navigate)} className='NextQuestionButton'>{isClick ? "Pokaż odpowiedź" : "Następne pytanie"}</button>
         </div>
       </>
