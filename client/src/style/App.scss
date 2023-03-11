@@ -4,12 +4,18 @@
 @import "./Truck.scss";
 @import './Quiz.scss';
 @import './Result.scss';
+
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
-
+#root {
+  z-index: 10000000000000000;
+}
 
 ::-webkit-scrollbar {
   width: 1.5em;
@@ -36,6 +42,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
 }
 
 body {

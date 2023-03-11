@@ -1,37 +1,27 @@
-import React, {useState, useEffect} from 'react';
-
-
 export let SecondSeconds = 1;
 export let SecondMinutes = 0;
 
-
+import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
+  const [time, setTime] = useState(0);
+  let seconds = Math.floor(time % 60);
+  let minutes = Math.floor(time / 60);
 
-
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
- 
   useEffect(() => {
-    let timer =   setInterval(() => {
+    const intervalId = setInterval(() => {
       SecondSeconds = seconds;
       SecondMinutes = minutes
-      setSeconds(seconds + 1);
-
-      if(seconds === 59) {
-            setMinutes(minutes + 1);
-            setSeconds(0);
-      }
-   
+      setTime(time + 1);
     }, 1000);
-  
-  
-    return () => clearInterval(timer);
-  });
-  
-    return (
+    return () => clearInterval(intervalId);
+  }, [time]);
+
+  return (
+    <div>
        <h1 className='timerTime'>{minutes < 10 ? "0"+minutes: minutes} : {seconds < 10 ? "0"+seconds: seconds}</h1>
-    )
-}
+    </div>
+  );
+};
 
 export default Timer;

@@ -1,16 +1,36 @@
-import React, {useContext, useState ,useRef} from 'react';
+import React, {useContext, useState ,useRef, useEffect} from 'react';
 import { AppContext } from './AppContext';
+export let idUnits = "";
 const SearchBox = () => {
 
  
-  const {unitOsp, isContainerActive, setunitOsp,setIsContainerActive,localization} = useContext(AppContext);
+  const {unitOsp, isContainerActive, setunitOsp,setIsContainerActive,localization,setId} = useContext(AppContext);
   const [value, setValue] = useState("");
   const inputSearchRef = useRef(true);
 
+
+  
   const handleChangeInput = (e) => {
-    setIsContainerActive(true);
-    const tasks = localization.filter(localization => localization.toLowerCase().includes(e.target.value.toLowerCase()));
-      setValue(tasks); 
+    if(e.target.value === "") return
+      fetch(`/osp-units?locality=${e.target.value}`)
+        .then(data => data.json())
+        .then(res=> {
+
+          res.map(locality => {
+            
+              let localityArray = []; 
+
+              localityArray.push(locality.locality);
+              let tasks = localityArray.filter(localization => localization.toLowerCase().includes(e.target.value.toLowerCase()));
+              setIsContainerActive(true);
+              setValue(tasks); 
+
+             idUnits = locality.ID
+          })
+        })
+    
+
+      
   }
 
   const OptionJSXTag = () => {

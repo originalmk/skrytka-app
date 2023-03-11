@@ -11,6 +11,9 @@ const AppProvider = ({ children }) => {
   const [isContainerActive, setIsContainerActive] = useState(true);
   const [localization, setLocalization] = useState(localizationFromDBArr);
   const [isPopUpActive, setIsPopUpActive] = useState(true);
+  const [idUnit, setId] = useState(1);
+  const [getImage, setGetImage] = useState('');
+  const [buttonClick, setButtonClick] = useState(false);
 
   return (
     <AppContext.Provider value={{
@@ -23,6 +26,13 @@ const AppProvider = ({ children }) => {
       localizationFromDBArr,
       isPopUpActive,
       setIsPopUpActive,
+      idUnit,
+      setId,
+      getImage,
+      setGetImage,
+      buttonClick,
+      setButtonClick
+
 
 
     }}>
