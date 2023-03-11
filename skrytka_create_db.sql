@@ -21,13 +21,13 @@ CREATE TABLE osp_unit (
 CREATE TABLE fire_truck (
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
-    image_path VARCHAR(128) CHECK(image_path ~ '^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$'),
+    image_path VARCHAR(128) CHECK(image_path ~ '^([0-9A-Za-z_]+/?)*[0-9A-Za-z_]+\.((png)|(jpg)|(jpeg)|(webp))$'),
     osp_unit_id INTEGER NOT NULL REFERENCES osp_unit ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE truck_side (
     id SERIAL PRIMARY KEY,
-    image_path VARCHAR(128) NOT NULL CHECK(image_path ~ '^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$'),
+    image_path VARCHAR(128) NOT NULL CHECK(image_path ~ '^([0-9A-Za-z_]+/?)*[0-9A-Za-z_]+\.((png)|(jpg)|(jpeg)|(webp))$'),
     ordinal_number INTEGER NOT NULL,
     fire_truck_id INTEGER REFERENCES fire_truck ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -91,17 +91,6 @@ CREATE TABLE event (
     account_nickname VARCHAR(32) REFERENCES account ON DELETE SET NULL ON UPDATE CASCADE,
     osp_unit_id INTEGER REFERENCES osp_unit ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE TABLE user_session (
-  "sid" varchar NOT NULL COLLATE "default",
-  "sess" json NOT NULL,
-  "expire" timestamp(6) NOT NULL
-)
-WITH (OIDS=FALSE);
-
-ALTER TABLE user_session ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
-
-CREATE INDEX "IDX_session_expire" ON user_session ("expire");
 
 CREATE TABLE user_session (
   "sid" varchar NOT NULL COLLATE "default",

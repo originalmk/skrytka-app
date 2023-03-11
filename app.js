@@ -33,7 +33,7 @@ class Rectangle {
 	}
 }
 
-types.setTypeParser(603, function (rectangleStr) {
+types.setTypeParser(603, function(rectangleStr) {
 	rectangleStr = rectangleStr.slice(1, rectangleStr.length - 1);
 	const pointStrs = rectangleStr.split('),(');
 	const fp = pointStrs[0].split(',');
@@ -62,7 +62,7 @@ app.use(session({
 	cookie: {
 		sameSite: 'lax',
 		// Age of cookie is counted from last access, so here 30 days of *not using* = deletion
-		maxAge: 30 * 24 * 60 * 60 * 1000
+		maxAge: 30 * 24 * 60 * 60 * 1000 
 	}
 }));
 
@@ -71,8 +71,8 @@ console.log(process.env.DB_NAME);
 let latencies = [0];
 const MAX_LATENCIES = 25;
 
-app.use(responseTime(function (req, res, time) {
-	if (latencies.length > MAX_LATENCIES) {
+app.use(responseTime(function(req, res, time) {
+	if(latencies.length > MAX_LATENCIES) {
 		latencies.shift();
 	}
 	latencies.push(time);
@@ -95,7 +95,7 @@ app.get('/ping', (req, res) => {
 app.get('/osp-units', async (req, res) => {
 	const locality = req.query['locality'];
 
-	if (!locality) {
+	if(!locality) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -113,7 +113,7 @@ app.get('/osp-units', async (req, res) => {
 		const unitsList = await db.any('SELECT id AS "ID", name, locality FROM get_units_list($1)', [locality]);
 		res.status(200);
 		res.json(unitsList);
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			queryErrors: {},
@@ -131,7 +131,7 @@ app.get('/osp-units', async (req, res) => {
 app.get('/fire-trucks', async (req, res) => {
 	const ospUnit = req.query['osp-unit'];
 
-	if (!ospUnit) {
+	if(!ospUnit) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -146,7 +146,7 @@ app.get('/fire-trucks', async (req, res) => {
 	// But it is better to know if result is empty because it is just answer to our question
 	// and without validation before query we can get empty result because of some undetermined error
 
-	if (!validator.isNumeric(ospUnit, { no_symbols: true })) {
+	if(!validator.isNumeric(ospUnit, { no_symbols: true })) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -157,7 +157,7 @@ app.get('/fire-trucks', async (req, res) => {
 		return;
 	}
 
-	if (ospUnit <= 0) {
+	if(ospUnit <= 0) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -170,7 +170,7 @@ app.get('/fire-trucks', async (req, res) => {
 
 	try {
 		const unitExists = (await db.any('SELECT id FROM osp_unit WHERE id = $1', [ospUnit])).length != 0;
-		if (!unitExists) {
+		if(!unitExists) {
 			res.status(404);
 			res.json({
 				queryErrors: {
@@ -180,7 +180,7 @@ app.get('/fire-trucks', async (req, res) => {
 			});
 			return;
 		}
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			queryErrors: {},
@@ -188,16 +188,16 @@ app.get('/fire-trucks', async (req, res) => {
 		});
 		return;
 	}
-
+	
 	let user = req.session['accountNickname'];
 	const loggedIn = user ?? false;
 
-	if (loggedIn) {
+	if(loggedIn) {
 		try {
 			const trucksList = await db.func('get_trucks_list_with_scores', [ospUnit, user]);
 			res.status(200);
 			res.json(trucksList);
-		} catch (error) {
+		} catch(error) {
 			console.log(error);
 			res.status(500);
 			res.json({
@@ -218,19 +218,19 @@ app.get('/fire-trucks', async (req, res) => {
 			// 3. Map scores so that each entry becomes average of scores divided by 10 (percents)
 
 			const quizResults = req.session.quizResults ?? [];
-			for (let i = quizResults.length - 1; i >= 0; i--) {
-				if (!avgPercents[quizResults[i].fireTruckID]) {
+			for(let i = quizResults.length - 1; i >= 0; i--) {
+				if(!avgPercents[quizResults[i].fireTruckID]) {
 					avgPercents[quizResults[i].fireTruckID] = [];
 				}
 
-				if (avgPercents[quizResults[i].fireTruckID].length < 3) {
+				if(avgPercents[quizResults[i].fireTruckID].length < 3) {
 					avgPercents[quizResults[i].fireTruckID].push(quizResults[i].points);
 				}
 			}
 
 			console.log(avgPercents);
 
-			Object.keys(avgPercents).forEach(function (fireTruckID, index) {
+			Object.keys(avgPercents).forEach(function(fireTruckID, index) {
 				let sum = 0;
 				let numberOfResults = 0;
 
@@ -240,7 +240,7 @@ app.get('/fire-trucks', async (req, res) => {
 					console.log(sum, numberOfResults);
 				});
 
-				let averagePercent = (sum / numberOfResults) / 10;
+				let averagePercent = (sum/numberOfResults)/10;
 				avgPercents[fireTruckID] = averagePercent;
 			});
 
@@ -254,7 +254,7 @@ app.get('/fire-trucks', async (req, res) => {
 
 			res.status(200);
 			res.json(trucksList);
-		} catch (error) {
+		} catch(error) {
 			console.log(error);
 			res.status(500);
 			res.json({
@@ -268,7 +268,7 @@ app.get('/fire-trucks', async (req, res) => {
 app.get('/quiz-pages', async (req, res) => {
 	const fireTruck = req.query['fire-truck'];
 
-	if (!fireTruck) {
+	if(!fireTruck) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -279,7 +279,7 @@ app.get('/quiz-pages', async (req, res) => {
 		return;
 	}
 
-	if (!validator.isNumeric(fireTruck, { no_symbols: true })) {
+	if(!validator.isNumeric(fireTruck, { no_symbols: true })) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -290,7 +290,7 @@ app.get('/quiz-pages', async (req, res) => {
 		return;
 	}
 
-	if (fireTruck <= 0) {
+	if(fireTruck <= 0) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -303,7 +303,7 @@ app.get('/quiz-pages', async (req, res) => {
 
 	try {
 		const truckExists = (await db.any('SELECT id FROM fire_truck WHERE id = $1', [fireTruck])).length != 0;
-		if (!truckExists) {
+		if(!truckExists) {
 			res.status(404);
 			res.json({
 				queryErrors: {
@@ -313,7 +313,7 @@ app.get('/quiz-pages', async (req, res) => {
 			});
 			return;
 		}
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			queryErrors: {},
@@ -330,7 +330,7 @@ app.get('/quiz-pages', async (req, res) => {
 		quizData = quizData.reduce((acc, curr) => {
 			const sideID = curr.sideID;
 
-			if (!acc[sideID]) {
+			if(!acc[sideID]) {
 				acc[sideID] = {
 					sideImagePath: curr.sideImagePath,
 					caches: []
@@ -350,7 +350,7 @@ app.get('/quiz-pages', async (req, res) => {
 
 		res.status(200);
 		res.send(quizData);
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			queryErrors: {},
@@ -362,7 +362,7 @@ app.get('/quiz-pages', async (req, res) => {
 app.get('/random-question', async (req, res) => {
 	const fireTruck = req.query['fire-truck'];
 
-	if (!fireTruck) {
+	if(!fireTruck) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -373,7 +373,7 @@ app.get('/random-question', async (req, res) => {
 		return;
 	}
 
-	if (!validator.isNumeric(fireTruck, { no_symbols: true })) {
+	if(!validator.isNumeric(fireTruck, { no_symbols: true })) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -384,7 +384,7 @@ app.get('/random-question', async (req, res) => {
 		return;
 	}
 
-	if (fireTruck <= 0) {
+	if(fireTruck <= 0) {
 		res.status(400);
 		res.json({
 			queryErrors: {
@@ -397,7 +397,7 @@ app.get('/random-question', async (req, res) => {
 
 	try {
 		const truckExists = (await db.any('SELECT id FROM fire_truck WHERE id = $1', [fireTruck])).length != 0;
-		if (!truckExists) {
+		if(!truckExists) {
 			res.status(404);
 			res.json({
 				queryErrors: {
@@ -407,7 +407,7 @@ app.get('/random-question', async (req, res) => {
 			});
 			return;
 		}
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			queryErrors: {},
@@ -420,7 +420,7 @@ app.get('/random-question', async (req, res) => {
 		const randomQuestion = await db.one('SELECT cache_id AS "cacheID", equipment_name AS "equipmentName" FROM get_random_question($1)', [fireTruck]);
 		res.status(200);
 		res.send(randomQuestion);
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			queryErrors: {},
@@ -434,7 +434,7 @@ app.post('/quiz-results', async (req, res) => {
 	const seconds = req.body.seconds.toString();
 	const points = req.body.points.toString();
 
-	if (!validator.isNumeric(fireTruck, { no_symbols: true })) {
+	if(!validator.isNumeric(fireTruck, { no_symbols: true })) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -445,7 +445,7 @@ app.post('/quiz-results', async (req, res) => {
 		return;
 	}
 
-	if (fireTruck <= 0) {
+	if(fireTruck <= 0) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -458,7 +458,7 @@ app.post('/quiz-results', async (req, res) => {
 
 	try {
 		const truckExists = (await db.any('SELECT id FROM fire_truck WHERE id = $1', [fireTruck])).length != 0;
-		if (!truckExists) {
+		if(!truckExists) {
 			res.status(404);
 			res.json({
 				fieldErrors: {
@@ -468,7 +468,7 @@ app.post('/quiz-results', async (req, res) => {
 			});
 			return;
 		}
-	} catch (error) {
+	} catch(error) {
 		res.status(500);
 		res.json({
 			fieldErrors: {},
@@ -479,7 +479,7 @@ app.post('/quiz-results', async (req, res) => {
 
 	/* Walidacje dla seconds */
 
-	if (!validator.isNumeric(seconds, { no_symbols: true })) {
+	if(!validator.isNumeric(seconds, { no_symbols: true })) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -490,7 +490,7 @@ app.post('/quiz-results', async (req, res) => {
 		return;
 	}
 
-	if (seconds <= 0) {
+	if(seconds <= 0) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -499,11 +499,11 @@ app.post('/quiz-results', async (req, res) => {
 			otherErrors: []
 		});
 		return;
-	}
+	}	
 
 	/* Walidacje dla points */
 
-	if (!validator.isNumeric(seconds, { no_symbols: true })) {
+	if(!validator.isNumeric(seconds, { no_symbols: true })) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -514,7 +514,7 @@ app.post('/quiz-results', async (req, res) => {
 		return;
 	}
 
-	if (points <= 0 || points >= 10) {
+	if(points <= 0 || points >= 10) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -528,10 +528,10 @@ app.post('/quiz-results', async (req, res) => {
 	// TODO: Zapis do sesji lub do bazy
 	console.log('Zapis', req.body);
 
-
-	if (!req.session.accountNickname) {
+	
+	if(!req.session.accountNickname) {
 		// Zapis do sesji
-		if (!req.session.quizResults) {
+		if(!req.session.quizResults) {
 			req.session.quizResults = [];
 		}
 
@@ -541,7 +541,7 @@ app.post('/quiz-results', async (req, res) => {
 		try {
 			await db.none('INSERT INTO score (account_nickname, fire_truck_id, points, seconds)\
 					VALUES ($1, $2, $3, $4)', [req.session.accountNickname, fireTruck, points, seconds]);
-		} catch (error) {
+		} catch(error) {
 			console.error(error);
 			res.status(500);
 			res.json({
@@ -561,6 +561,7 @@ app.post('/quiz-results', async (req, res) => {
 	res.status(200);
 	res.send('Added!');
 });
+
 app.get('/cookiegetvalue', (req, res) => {
 	const val = req.session.counter || 0;
 	res.status(200);
@@ -572,7 +573,7 @@ app.get('/cookiegetvalue', (req, res) => {
 app.get('/simulate-login', (req, res) => {
 	const nickToAuth = req.query.nickname;
 
-	if (!nickToAuth) {
+	if(!nickToAuth) {
 		res.status(400);
 		res.send('You must pass nickname as query parameter to simulate login');
 		return;
@@ -584,7 +585,7 @@ app.get('/simulate-login', (req, res) => {
 });
 
 app.get('/simulate-logout', (req, res) => {
-	if (!req.session.accountNickname) {
+	if(!req.session.accountNickname) {
 		res.status(401);
 		res.json({
 			fieldErrors: {},
