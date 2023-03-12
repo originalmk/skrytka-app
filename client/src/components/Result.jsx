@@ -10,22 +10,29 @@ import  {  CircularProgressbar ,  buildStyles  }  from  'react-circular-progress
 import 'react-circular-progressbar/dist/styles.css';
 
 const Result = () => {
-  
-
-
-    fetch('/quiz-results', {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json, text/plain, */*',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({fireTruck: TruckId, seconds: SecondSeconds, points: endScore})
-});
-
   const navigate = useNavigate();
-  // UpdateTrackScore();
+    console.log(endScore);
+    useEffect(() => {
+      if(!endScore) navigate('/');
+    },[])
+    
 
-
+    if(endScore) {
+      useEffect(() => {
+   
+        fetch('/quiz-results', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({fireTruck: TruckId, seconds: SecondSeconds, points: endScore})
+        });
+        
+      }, [])
+    }
+  
+  
   return (
     <>
       <div className="container">

@@ -10,12 +10,11 @@ import FooterQuiz from './FooterQuiz';
 
 
 export let link = "";
-export let endScore = 0;
+export let endScore = null;
 
 const NavigationQuiz = ({score,buttonState}) => {
-  
-
-
+    
+ 
  
   link = /[^/]*$/.exec(`${window.location.href}`)[0];
   const navigate = useNavigate();

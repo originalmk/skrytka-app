@@ -1,5 +1,6 @@
 
 import React, {useRef, useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TruckId } from './Truck';
 
 import { EndCacheId } from './GetQuestion';
@@ -214,10 +215,13 @@ export const QuizGetImage = ({onPress, isClick,setButtonState}) => {
 
 
   const [myArray] = useState([imageArrayFromDB]);
- 
+  const navigate = useNavigate();
     
 useEffect(() => {
   
+    if(!TruckId) navigate('/')
+
+    
   fetch(`/quiz-pages?fire-truck=${TruckId}`)
     .then(res => res.json())
     .then(data => {

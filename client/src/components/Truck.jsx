@@ -1,7 +1,7 @@
 
 import React, {useRef,useEffect} from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,  useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import { idUnits } from './SelectBox';
 export let TruckId = "";
@@ -9,11 +9,9 @@ export let TruckId = "";
 
 
 const Truck = () => {
-
   const {id} = useParams();
   const [trackName, setTrackName] = useState('');
   const textChooseTrack = useRef(true);
-  
 
   const handleImageClick = (e) => {
     let nameofTrack = e.target.getAttribute('name');
@@ -35,17 +33,18 @@ const Truck = () => {
 
   const BoxComponent = () => {
 
-
+    const navigate = useNavigate();
 
 
     
     let [truck, setTruck] = useState('');
     useEffect(()=> {
-
+        if(!idUnits) navigate('/')
       
       fetch(`/fire-trucks?osp-unit=${idUnits}`)
       .then(response => response.json())
       .then(data => {
+          
      setTruck(data.map(({ID,name,imagePath,avgPercent},index) => {
           TruckId = ID;
           let percent = avgPercent.toString().slice(0,3);
