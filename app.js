@@ -535,6 +535,10 @@ app.post('/quiz-results', async (req, res) => {
 			req.session.quizResults = [];
 		}
 
+		if(req.session.quizResults.length == 10) {
+			req.session.quizResults.shift();
+		}
+
 		req.session.quizResults.push({ fireTruckID: fireTruck, seconds, points });
 	} else {
 		// Zapis na konto
