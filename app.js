@@ -66,28 +66,7 @@ app.use(session({
 	}
 }));
 
-console.log(process.env.DB_NAME);
-
-let latencies = [0];
-const MAX_LATENCIES = 25;
-
-app.use(responseTime(function(req, res, time) {
-	if(latencies.length > MAX_LATENCIES) {
-		latencies.shift();
-	}
-	latencies.push(time);
-}));
-
 app.use(express.json());
-
-app.get('/ping', (req, res) => {
-	let latenciesSum = 0;
-	latencies.forEach(l => latenciesSum += l);
-	const avgLatency = latenciesSum / latencies.length;
-
-	res.status(200);
-	res.send(`Pong! (average latency: ${avgLatency}ms)`);
-});
 
 /* Getting OSP units of provided prefix
  * e.g. https://skrytka.app/osp-units?prefix=Gda
@@ -514,7 +493,7 @@ app.post('/quiz-results', async (req, res) => {
 		return;
 	}
 
-	if(points <= 0 || points >= 10) {
+	if(points < 0 || points > 10) {
 		res.status(400);
 		res.json({
 			fieldErrors: {
@@ -525,10 +504,6 @@ app.post('/quiz-results', async (req, res) => {
 		return;
 	}
 
-	// TODO: Zapis do sesji lub do bazy
-	console.log('Zapis', req.body);
-
-	
 	if(!req.session.accountNickname) {
 		// Zapis do sesji
 		if(!req.session.quizResults) {
@@ -557,52 +532,6 @@ app.post('/quiz-results', async (req, res) => {
 	}
 
 	res.sendStatus(204);
-});
-
-// TESTY CIASTECZEK:
-/* app.get('/cookieaddone', (req, res) => {
-	req.session.counter = (req.session.counter || 0) + 1
-	res.status(200);
-	res.send('Added!');
-});
-
-app.get('/cookiegetvalue', (req, res) => {
-	const val = req.session.counter || 0;
-	res.status(200);
-	res.send(`Value: ${val}`);
-}); */
-
-// TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// CAUTION: Only for testing purposes! Should be deleted ASAP when not needed anymore.
-app.get('/simulate-login', (req, res) => {
-	const nickToAuth = req.query.nickname;
-
-	if(!nickToAuth) {
-		res.status(400);
-		res.send('You must pass nickname as query parameter to simulate login');
-		return;
-	}
-
-	req.session.accountNickname = nickToAuth;
-	res.status(200);
-	res.send(`Logged in as ${nickToAuth}`);
-});
-
-app.get('/simulate-logout', (req, res) => {
-	if(!req.session.accountNickname) {
-		res.status(401);
-		res.json({
-			fieldErrors: {},
-			otherErrors: [
-				'Użytkownik nie jest zalogowany!'
-			]
-		});
-		return;
-	}
-
-	req.session.destroy();
-	res.status(200);
-	res.send(`Logged out!`);
 });
 
 // This should remain at the end of all routes
