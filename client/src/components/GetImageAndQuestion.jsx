@@ -73,33 +73,33 @@ export const QuizDataImageFromDb = [
     },
   },
   {
-    img: '../qweqweqsadqw',
+    img: '',
     boxStyle: {
       name: "",
-      top: "50%",
-      left: "15%",
-      height: "39%",
-      width: "15.5%",
+      top: "",
+      left: "",
+      height: "",
+      width: "",
   },
   boxStyle1: {
-    name1: "Dowódca 2",
-    top1: "42%",
-    left1: "32%",
-    height1: "24%",
-    width1: "18%",
+    name1: "",
+    top1: "",
+    left1: "",
+    height1: "",
+    width1: "",
   },
   boxStyle2: {
-    name2: "Dowódca 1",
-    top2: "52%",
-    left2: "49%",
-    height2: "39%",
-    width2: "14%",
+    name2: "",
+    top2: "",
+    left2: "",
+    height2: "",
+    width2: "",
   },
   boxStyle3: {
-    top2: "50%",
-    left2: "49%",
-    height2: "0",
-    width2: "0",
+    top3: "",
+    left3: "",
+    height3: "",
+    width3: "",
   },
 
   },
@@ -108,14 +108,32 @@ export const QuizDataImageFromDb = [
     img: '',
     boxStyle: {
       name: "",
-      top: "42%",
-      left: "50.5%",
-      height: "41%",
-      width: "18%",
+      top: "",
+      left: "",
+      height: "",
+      width: "",
   },
-  boxStyle1: {},
-  boxStyle2: {},
-  boxStyle3: {},
+  boxStyle1: {
+    name1: "",
+    top1: "",
+    left1: "",
+    height1: "",
+    width1: "",
+  },
+  boxStyle2: {
+    name2: "",
+    top2: "",
+    left2: "",
+    height2: "",
+    width2: "",
+  },
+  boxStyle3: {
+    name3: "",
+    top3: "",
+    left3: "",
+    height3: "",
+    width3: "",
+  },
   }
 ];
 
@@ -136,12 +154,18 @@ export const QuizGetImage = ({onPress, isClick,setButtonState}) => {
 /////////////////////////////////////////////////////////////
 ////////////////////////////
 //          TEN CAŁY KOD JEST DO REFACTORU !!!
+
+
+
+
    
 
   let name0ArrayFromDB = [];
   let name1ArrayFromDB = [];
   let name2ArrayFromDB = [];
   let name3ArrayFromDB = [];
+
+
 
   const [name0Array] = useState([name0ArrayFromDB]);
   const [name1Array] = useState([name1ArrayFromDB]);
@@ -230,7 +254,10 @@ useEffect(() => {
 
 
       propertValuesObjectFromDb.forEach((singleProperty,index) => {
-        
+         
+
+      
+
 
 
         const {caches, sideImagePath} =singleProperty;
@@ -240,15 +267,8 @@ useEffect(() => {
           case 1: 
               name0ArrayFromDB.push(caches[0].cacheName);
               cacheID0ArrayFromDB.push(caches[0].cacheID);
-
-
               left0ArrayFromDB.push(caches[0].cacheRectangle.leftBottomPoint.x)
               top0ArrayFromDB.push(caches[0].cacheRectangle.leftBottomPoint.y);
-
-              cacheID0ArrayFromDB.push(caches[0].cacheID);
-
-
-
               sizeX0ArrayFromDB.push(caches[0].cacheRectangle.size.x)
               sizeY0ArrayFromDB.push(caches[0].cacheRectangle.size.y)
             
@@ -258,9 +278,9 @@ useEffect(() => {
             name1ArrayFromDB.push(caches[1].cacheName);
 
 
-          cacheID0ArrayFromDB.push(caches[0].cacheID);
-          cacheID1ArrayFromDB.push(caches[1].cacheID);
-        
+            cacheID0ArrayFromDB.push(caches[0].cacheID);
+            cacheID1ArrayFromDB.push(caches[1].cacheID);
+            
 
             left0ArrayFromDB.push(caches[0].cacheRectangle.leftBottomPoint.x)
             left1ArrayFromDB.push(caches[1].cacheRectangle.leftBottomPoint.x)
@@ -276,6 +296,7 @@ useEffect(() => {
            
           break;
           case 3: 
+          console.log('Wykonało sie 3')
             name0ArrayFromDB.push(caches[0].cacheName);
             name1ArrayFromDB.push(caches[1].cacheName);
             name2ArrayFromDB.push(caches[2].cacheName);
@@ -326,6 +347,7 @@ useEffect(() => {
 
             sizeX0ArrayFromDB.push(caches[0].cacheRectangle.size.x);
             sizeX1ArrayFromDB.push(caches[1].cacheRectangle.size.x);
+            sizeX2ArrayFromDB.push(caches[2].cacheRectangle.size.x);
             sizeX3ArrayFromDB.push(caches[3].cacheRectangle.size.x);
 
             sizeY0ArrayFromDB.push(caches[0].cacheRectangle.size.y)
@@ -421,8 +443,8 @@ useEffect(() => {
         <button ref = {buttonQuiz} name = {cacheID0Array[0][index]} onClick = {onPress} className="quiz_button"  style = {{
           "width": `${sizeX0Array[0][index] * 100}%`,
           "height": `${sizeY0Array[0][index] * 100}%`,
-          "top": `${left0Array[0][index] * 100}%`,
-          "left": `${top0Array[0][index] * 100}%` !== "undefined%" ?  `${top0Array[0][index] * 100}%` : "-300%",
+          "left": `${left0Array[0][index]* 100}%` !== "undefined%" ?  `${left0Array[0][index]* 100}%` : "-500%",
+          "bottom": `${top0Array[0][index] * 100}%`,
         }}>{name0Array[0][index]}</button>
 
 
@@ -430,24 +452,24 @@ useEffect(() => {
         style = {{
           "width": `${sizeX1Array[0][index]* 100}%`,
           "height": `${sizeY1Array[0][index]* 100}%`,
-          "top": `${left1Array[0][index]* 100}%`,
-          "left": `${top1Array[0][index]* 100}%` !== "undefined%" ?  `${top1Array[0][index]* 100}%` : "-300%",
+          "left": `${left1Array[0][index]* 100}%` !== "undefined%" ?  `${left1Array[0][index]* 100}%` : "-500%",
+          "bottom": `${top1Array[0][index]* 100}%`,
         }}>{name1Array[0][index]}</button>
 
         <button ref = {buttonQuiz} name = {cacheID2Array[0][index]}  className="quiz_button" onClick = {onPress}
         style = {{
           "width": `${sizeX2Array[0][index]* 100}%`,
           "height": `${sizeY2Array[0][index]* 100}%`,
-          "top": `${left2Array[0][index]* 100}%`,
-          "left": `${top2Array[0][index]* 100}%` !== "undefined%" ?  `${top2Array[0][index]* 100}%`  : "-300%",
+          "left": `${left2Array[0][index]* 100}%` !== "undefined%" ?  `${left2Array[0][index]* 100}%` : "-500%",
+          "bottom": `${top2Array[0][index]* 100}%`,
         }}>{name2Array[0][index]}</button>
 
         <button ref = {buttonQuiz} name = {cacheID3Array[0][index]}  className="quiz_button" onClick = {onPress}
          style = {{
           "width": `${sizeX3Array[0][index]* 100}%`,
           "height": `${sizeY3Array[0][index]* 100}%`,
-          "top": `${left3Array[0][index]* 100}%`,
-          "left": `${top3Array[0][index]* 100}%` !== "undefined%" ?  `${top3Array[0][index] * 100}%` : "-300%",
+          "left": `${left3Array[0][index]* 100}%` !== "undefined%" ?  `${left3Array[0][index]* 100}%` : "-500%",
+          "bottom": `${top3Array[0][index]* 100}%`,
         }}>{name3Array[0][index]}</button>
   
 
