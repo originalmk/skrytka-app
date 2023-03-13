@@ -66,28 +66,7 @@ app.use(session({
 	}
 }));
 
-console.log(process.env.DB_NAME);
-
-let latencies = [0];
-const MAX_LATENCIES = 25;
-
-app.use(responseTime(function(req, res, time) {
-	if(latencies.length > MAX_LATENCIES) {
-		latencies.shift();
-	}
-	latencies.push(time);
-}));
-
 app.use(express.json());
-
-app.get('/ping', (req, res) => {
-	let latenciesSum = 0;
-	latencies.forEach(l => latenciesSum += l);
-	const avgLatency = latenciesSum / latencies.length;
-
-	res.status(200);
-	res.send(`Pong! (average latency: ${avgLatency}ms)`);
-});
 
 /* Getting OSP units of provided prefix
  * e.g. https://skrytka.app/osp-units?prefix=Gda
