@@ -2,6 +2,8 @@
 # skrytka.app
 ![Badge z licencją AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-9cf)
 
+**Be aware that this app is not stable yet and new commits may introduce breaking changes**
+
 To start this application you need to:
 1. Configure database
     - Install PostgreSQL DBMS
