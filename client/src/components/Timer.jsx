@@ -1,11 +1,11 @@
-export let SecondSeconds = 1;
+export let SecondSeconds = 0;
 export let SecondMinutes = 0;
 
 import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
   const [time, setTime] = useState(0);
-  let seconds = Math.floor(time % 60);
+  let seconds = Math.floor(time % 60) + 1;
   let minutes = Math.floor(time / 60);
 
   useEffect(() => {

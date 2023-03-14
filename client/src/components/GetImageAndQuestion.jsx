@@ -136,7 +136,7 @@ export const QuizDataImageFromDb = [
   },
   }
 ];
-
+let MAX_POINT = 9;
 
 
 
@@ -379,10 +379,10 @@ useEffect(() => {
       const buttonsElementArray = Array.from(buttonsElement)
       setIsClick(!isClick);
     
-      if(score === 9) {
+      if(score === MAX_POINT) {
         navigate('/result');
       }
-    if(isClick === true) {
+    if(isClick) {
       buttonsElementArray.forEach(button => {
     
     

@@ -11,12 +11,9 @@ import 'react-circular-progressbar/dist/styles.css';
 
 const Result = () => {
   const navigate = useNavigate();
-    console.log(endScore);
-    useEffect(() => {
-      if(!endScore) navigate('/');
-    },[])
-    
-
+  useEffect(() => {
+    if(!SecondSeconds) navigate('/');
+  },[])
     if(endScore) {
       useEffect(() => {
    
