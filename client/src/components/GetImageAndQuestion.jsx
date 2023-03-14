@@ -1,4 +1,3 @@
-
 import React, {useRef, useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TruckId } from './Truck';
@@ -296,7 +295,6 @@ useEffect(() => {
            
           break;
           case 3: 
-          console.log('Wykonało sie 3')
             name0ArrayFromDB.push(caches[0].cacheName);
             name1ArrayFromDB.push(caches[1].cacheName);
             name2ArrayFromDB.push(caches[2].cacheName);
