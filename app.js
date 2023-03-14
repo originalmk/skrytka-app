@@ -56,7 +56,7 @@ app.use(session({
 		pgPromise: db,
 		tableName: 'user_session'
 	}),
-	secret: 'tujakistajnysekretnietakijakto',
+	secret: `${process.env.COOKIE_SECRET}`,
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
