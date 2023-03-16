@@ -1,6 +1,5 @@
 import { TruckId } from "./Truck";
-import { AppContext } from './AppContext';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { ButtonShowCorrectAnswer } from "./GetImageAndQuestion";
 export let EndCacheId = "";
 export let EndCorrectAnswer = "";
@@ -8,20 +7,20 @@ export let EndCorrectAnswer = "";
  
 const FetchData = ({isClick,score,setIsClick,setScore,navigate}) => {
 
-
-    useEffect(() => {
-      fetch(`/random-question?fire-truck=${TruckId}`)
-      .then(res => res.json())
-      .then(dataQuestion => {
-        if(isClick) {
-        const propertValuesObjectFromDb = Object.values(dataQuestion);
-          EndCorrectAnswer = propertValuesObjectFromDb[1];
-
-          EndCacheId = propertValuesObjectFromDb[0];
-        }
+      useEffect(() => {
+        fetch(`/random-question?fire-truck=${TruckId}`)
+        .then(res => res.json())
+        .then(dataQuestion => {
+          if(isClick){
+            const propertValuesObjectFromDb = Object.values(dataQuestion);
+            EndCorrectAnswer = propertValuesObjectFromDb[1];
+            EndCacheId = propertValuesObjectFromDb[0];
+          }
         
-      })
-    })
+          
+        })
+      });
+   
   
   
   
@@ -30,7 +29,7 @@ const FetchData = ({isClick,score,setIsClick,setScore,navigate}) => {
      
       <div className="questionDiv">
       <h1 className='questionText1'>{EndCorrectAnswer}</h1>  
-      <button onClick={() => ButtonShowCorrectAnswer(isClick, setIsClick , score , setScore, navigate)} className='NextQuestionButton'>{isClick ? "Pokaż odpowiedź" : "Następne pytanie"}</button>
+      <button onClick={() => ButtonShowCorrectAnswer(isClick, setIsClick , score , setScore, navigate)} className='NextQuestionButton'>{isClick ? "Pokaż odpowiedź":"Następne pytanie"}</button>
         </div>
       </>
      
@@ -40,7 +39,13 @@ const FetchData = ({isClick,score,setIsClick,setScore,navigate}) => {
 
 export const QuizGetQuestion = ({score,isClick,setScore,setIsClick,navigate}) => {
   return (
-    <FetchData score = {score} isClick = {isClick} setScore = {setScore} setIsClick = {setIsClick} navigate = {navigate}/>
+    <FetchData 
+    score = {score} 
+    isClick = {isClick} 
+    setScore = {setScore} 
+    setIsClick = {setIsClick}
+    navigate = {navigate}
+    />
   )
 
 }

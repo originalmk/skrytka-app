@@ -48,7 +48,7 @@ const Result = () => {
       textColor : 'black' , 
       trailColor : '#c6c4c4' , 
       backgroundColor : '#d42436' , 
-    } ) }  />;
+    } ) }  />
      </div>
   
     <h3 className='textDependsEndScore'>{{endScore}/10 < 9 ? "Jesteś szybki.. ale pożar jest szybszy" : "Brawo udało ci się ugasić pożar !!!"}</h3>
