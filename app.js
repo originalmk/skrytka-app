@@ -303,8 +303,8 @@ app.get('/quiz-pages', async (req, res) => {
 
 	try {
 		let quizData = await db.any(
-			'SELECT side_id AS "sideID", side_image_path AS "sideImagePath", \
-				cache_id AS "cacheID", cache_rectangle as "cacheRectangle", cache_name as "cacheName" FROM get_quiz_data_for_truck($1)', [fireTruck]);
+			`SELECT side_id AS "sideID", side_image_path AS "sideImagePath",
+				cache_id AS "cacheID", cache_rectangle as "cacheRectangle", cache_name as "cacheName" FROM get_quiz_data_for_truck($1)`, [fireTruck]);
 
 		quizData = quizData.reduce((acc, curr) => {
 			const sideID = curr.sideID;
