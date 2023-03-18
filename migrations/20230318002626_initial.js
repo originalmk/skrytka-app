@@ -16,7 +16,7 @@ exports.up = function(knex) {
 			.notNullable();
 		table.string('image_path')
 			.notNullable()
-			.checkRegex('^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$');
+			.checkRegex('^([0-9a-z_]+/{0,1})*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$');
 		table.integer('osp_unit_id')
 			.unsigned()
 			.notNullable()
@@ -27,7 +27,7 @@ exports.up = function(knex) {
 		table.increments();
 		table.string('image_path')
 			.notNullable()
-			.checkRegex('^([0-9a-z_]+/?)*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$');
+			.checkRegex('^([0-9a-z_]+/{0,1})*[0-9a-z_]+\.((png)|(jpg)|(jpeg)|(webp))$');
 		table.integer('ordinal_number')
 			.notNullable();
 		table.integer('fire_truck_id')
