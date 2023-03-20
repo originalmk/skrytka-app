@@ -7,16 +7,17 @@ import { idUnits } from './SelectBox';
 export let TruckId = "";
 
 
-
 const Truck = () => {
   const {id} = useParams();
   const [trackName, setTrackName] = useState('');
+  const [checkIsClick, setCheckIsClick] = useState(false);
   const textChooseTrack = useRef(true);
 
-  const handleImageClick = (e) => {
+  const handleImageClick = (e, ID) => {
     let nameofTrack = e.target.getAttribute('name');
     setTrackName(nameofTrack);
-
+    TruckId = ID;
+    setCheckIsClick(!checkIsClick);
     textChooseTrack.current.style.color= 'black';
   
   }  
@@ -46,7 +47,6 @@ const Truck = () => {
       .then(data => {
           
      setTruck(data.map(({ID,name,imagePath,avgPercent},index) => {
-          TruckId = ID;
           let percent = avgPercent.toString().slice(0,3);
           let firstAvgPercent = percent  * 10;
           let SecondAvgPercent = percent * 100;
@@ -55,20 +55,20 @@ const Truck = () => {
         <>
               
 
-        <div className="boxTrack" key = {index} id = {imagePath} name = {name} onClick={(e) => handleImageClick(e)} >
+        <div className="boxTrack" key = {index} id = {imagePath} name = {name} onClick={(e) => handleImageClick(e, ID)} >
 
 
-        <img className='imageFireTrack' id = {imagePath}  src={`../${imagePath}`} alt="img" name = {name} onClick={(e) => handleImageClick(e)} />
+        <img className='imageFireTrack' id = {imagePath}  src={`../${imagePath}`} alt="img" name = {name} onClick={(e) => handleImageClick(e,ID)} />
 
  
         <div className="informationAboutTrack" name = {name} onClick={(e) => handleImageClick(e)}>
-          <h3 className= 'TrackName'  name = {name} onClick={(e) => handleImageClick(e)}>{name}</h3>
+          <h3 className= 'TrackName'  name = {name} onClick={(e) => handleImageClick(e,ID)}>{name}</h3>
         
 
-          <progress className="progress" max="100" value={SecondAvgPercent}  name = {name} onClick={(e) => handleImageClick(e)} ></progress>
+          <progress className="progress" max="100" value={SecondAvgPercent}  name = {name} onClick={(e) => handleImageClick(e,ID)} ></progress>
           <div className='ScoringValueTrack'  name = {name} onClick={(e) => handleImageClick(e)}>
-          <h4 name = {name} onClick={(e) => handleImageClick(e)}>{firstAvgPercent}/10</h4>
-          <h4 name = {name} onClick={(e) => handleImageClick(e)}>{SecondAvgPercent}%</h4>
+          <h4 name = {name} onClick={(e) => handleImageClick(e,ID)}>{firstAvgPercent}/10</h4>
+          <h4 name = {name} onClick={(e) => handleImageClick(e,ID)}>{SecondAvgPercent}%</h4>
           </div>
           
         </div>
@@ -84,7 +84,7 @@ const Truck = () => {
 
    
    )
-    },[])
+    },[checkIsClick])
     
       return (
         <>
