@@ -29,3 +29,7 @@ Note: pm2 or/and nginx may be used to run this app for production
 3. Run `knex migrate:latest` in the root directory. Remember you need to have knex installed both globally and locally (it is in package.json so if you run `npm install` you will have it installed) to do that.
 4. Go to client directory and enter `npm build`.
 5. Start the app. If you use pm2, exectue `pm2 start <your-app-name>`.
+
+## Contributing
+You are welcome to help us create Skrytka. Just remember to dicuss what you want to work (specified issue - if there is no one then you should create one for that).
+Code contributed should be tested to work correctly!
