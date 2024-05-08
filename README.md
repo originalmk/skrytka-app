@@ -2,7 +2,15 @@
 # skrytka.app
 ![Badge z licencją AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-9cf)
 
-**Be aware that this app is not stable yet and new commits may introduce breaking changes**
+## About the project
+
+Skrytka.App is an app, which development started in 2023 as one of [Zwolnieni z Teorii](https://zwolnienizteorii.pl/) community projects. Due to some organisational problems it wasn't finished, but I plan to complete it in the future. Key (planned) features of this app are providing quizes for various fire engines, scores, statistics, ability to manage the engines (especially it should be easy to add new ones), including ability to modify type of equipment and its placement. We believe that our app will improve reaction time during fire-fighting, which is crucial to successfully protect live or property.
+
+We are a team of 6 people: Mikołaj Głowacki, Jan Iłowski, Paweł Kubica, Laura Surowiec, Maciej Krzyżanowski (me), Stanisław Piust.
+
+## Running the app
+
+**Be aware that this app is not stable (or finished) yet and new commits may introduce breaking changes**
 
 To start this application you need to:
 
